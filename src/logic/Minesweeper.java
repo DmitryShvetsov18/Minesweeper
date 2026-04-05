@@ -1,5 +1,7 @@
 package logic;
 
+import javafx.scene.layout.GridPane;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,11 +13,11 @@ public class Minesweeper {
     private final int countOfMines;
     public Cell[][] cells;
 
-    public Minesweeper(int rows, int columns, int mines) {
+    public Minesweeper(int rows, int columns, int mines, GridPane pane) {
         this.rows = rows;
         this.columns = columns;
         this.countOfMines = mines;
-        cells = MinesweeperUtils.createListOfCells(rows, columns);
+        cells = MinesweeperUtils.createListOfCells(rows, columns, pane);
     }
 
     public int getRows() {
