@@ -25,6 +25,9 @@ public class Cell extends Button {
     public void setIsMine(boolean boolValue) {
         isMine = boolValue;
     }
+    public boolean IsMine() {
+        return isMine;
+    }
 
 
     @Override
