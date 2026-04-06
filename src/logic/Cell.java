@@ -3,19 +3,24 @@ package logic;
 import javafx.scene.control.Button;
 
 public class Cell extends Button {
-    private static int lastNumber = 0;
 
     private boolean isMine = false;
-    private int countNeighbours;
+    private int countOfMines;
     private final int row;
     private final int column;
     private int number;
 
+    public Cell(int row, int column, int number) {
+        super();
+        this.row = row;
+        this.column = column;
+        this.number = number;
+    }
     public Cell(int row, int column) {
         super();
         this.row = row;
         this.column = column;
-        number = lastNumber++;
+        this.number = -1;
     }
 
     public int getNumber() {
@@ -29,6 +34,12 @@ public class Cell extends Button {
         return isMine;
     }
 
+    public void setCountOfMines(int countOfMines) {
+        this.countOfMines = countOfMines;
+    }
+    public int getCountOfMines() {
+        return this.countOfMines;
+    }
 
     @Override
     public String toString() {

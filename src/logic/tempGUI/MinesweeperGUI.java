@@ -13,8 +13,9 @@ public class MinesweeperGUI extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         GridPane gridPane = new GridPane();
-        Minesweeper gameBoard = new Minesweeper(10, 10, 15, gridPane);
+        Minesweeper gameBoard = new Minesweeper(5, 5, 5, gridPane);
         gameBoard.insertMines();
+        gameBoard.countMinesInCells();
 
         gameBoard.printCells();
         Scene scene = new Scene(gridPane, 500, 500);
