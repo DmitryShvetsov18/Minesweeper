@@ -28,9 +28,14 @@ public class Minesweeper {
         return countOfMines;
     }
     public void printCells() {
-        for (int i = 0; i < rows+2; i++) {
-            for (int j = 0; j < columns+2; j++) {
-                System.out.print(cells[i][j] + " ");
+        for (int y = 1; y < rows+1; y++) {
+            for (int x = 1; x < columns+1; x++) {
+                if (cells[y][x].IsMine()) {
+                    System.out.print("B");
+                }
+                else {
+                    System.out.print(cells[y][x].getCountOfMines());
+                }
             }
             System.out.println();
         }

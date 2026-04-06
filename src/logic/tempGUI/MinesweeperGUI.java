@@ -1,6 +1,7 @@
 package logic.tempGUI;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -13,13 +14,15 @@ public class MinesweeperGUI extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         GridPane gridPane = new GridPane();
-        Minesweeper gameBoard = new Minesweeper(5, 5, 5, gridPane);
+        Minesweeper gameBoard = new Minesweeper(10, 10, 15, gridPane);
         gameBoard.insertMines();
         gameBoard.countMinesInCells();
 
         gameBoard.printCells();
-        Scene scene = new Scene(gridPane, 500, 500);
+        gridPane.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(gridPane, 1000, 1000);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("Сапер 2077");
         primaryStage.show();
     }
 

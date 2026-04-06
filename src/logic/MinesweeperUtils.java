@@ -4,6 +4,9 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MinesweeperUtils {
     public static Cell[][] createListOfCells(int rows, int columns, GridPane pane) {
         Cell[][] result = new Cell[rows + 2][columns + 2];
@@ -22,11 +25,14 @@ public class MinesweeperUtils {
                     System.out.println(button);
                     if (button.IsMine()) {
                         button.setText("*");
-                        button.setStyle("-fx-background-color: red");
+                        button.setStyle(
+                            "-fx-background-color: red; -fx-font-size: 20px"
+                        );
                     }
                     else {
                         button.setText(String.valueOf(button.getCountOfMines()));
-                        System.out.println(String.valueOf(button.getNumber()));
+                        String color = colors.get(button.getCountOfMines());
+                        button.setStyle("-fx-text-fill: %s; -fx-font-size: 24px; font-weight: bold".formatted(color));
                     }
                     button.setDisable(true);
                     button.setTextFill(Color.BLACK);
@@ -38,4 +44,17 @@ public class MinesweeperUtils {
         }
         return result;
     }
+    public static HashMap<Integer, String> colors = new HashMap<>(
+        Map.ofEntries(
+            Map.entry(1, "blue"),
+            Map.entry(2, "green"),
+            Map.entry(3, "red"),
+            Map.entry(4, "purple"),
+            Map.entry(5, "brown"),
+            Map.entry(6, "cyan"),
+            Map.entry(7, "orange"),
+            Map.entry(8, "magenta")
+        )
+    );
+
 }
