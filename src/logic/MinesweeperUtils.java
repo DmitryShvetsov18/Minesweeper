@@ -22,18 +22,14 @@ public class MinesweeperUtils {
                 button.setStyle("-fx-font-size: 20px");
                 button.setOnAction(e -> {
                     System.out.println(button);
-                    button.setStatus(CellStatus.OPENED);
                     if (button.getStatus() == CellStatus.BOMB) {
-                        button.setText("*");
-                        button.setStyle(
-                            "-fx-background-color: red; -fx-font-size: 20px"
-                        );
+                        openMines(result, rows, columns);
                     }
                     else if (button.getCountOfMines() != 0){
                         button.setText(String.valueOf(button.getCountOfMines()));
                         String color = colors.get(button.getCountOfMines());
                         button.setStyle("-fx-text-fill: %s; -fx-font-size: 24px; font-weight: bold".formatted(color));
-
+                        button.setStatus(CellStatus.OPENED);
                     }
                     else {
                         button.setText("");
@@ -101,6 +97,21 @@ public class MinesweeperUtils {
             button.setDisable(true);
             button.setStatus(CellStatus.OPENED);
             checkedButtons.add(button);
+        }
+    }
+
+    public static void openMines(Cell[][] cells, int rows, int columns) {
+        for (int y = 1; y < rows + 1; y++) {
+            for (int x = 1; x < columns + 1; x++) {
+                Cell button = cells[y][x];
+                if (button.getStatus() == CellStatus.BOMB) {
+                    button.setText("*");
+                    button.setStyle(
+                            "-fx-background-color: red; -fx-font-size: 20px"
+                    );
+                    button.setDisable(true);
+                }
+            }
         }
     }
 }

@@ -17,8 +17,8 @@ public class MinesweeperGUI extends Application {
         Minesweeper gameBoard = new Minesweeper(10, 10, 15, gridPane);
         gameBoard.insertMines();
         gameBoard.countMinesInCells();
-
         gameBoard.printCells();
+
         gridPane.setAlignment(Pos.CENTER);
         Scene scene = new Scene(gridPane, 700, 700);
         primaryStage.setScene(scene);
