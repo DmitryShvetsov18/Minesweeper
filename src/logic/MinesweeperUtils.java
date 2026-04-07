@@ -4,8 +4,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MinesweeperUtils {
     public static Cell[][] createListOfCells(int rows, int columns, GridPane pane) {
@@ -23,19 +22,25 @@ public class MinesweeperUtils {
                 button.setStyle("-fx-font-size: 20px");
                 button.setOnAction(e -> {
                     System.out.println(button);
-                    if (button.IsMine()) {
+                    if (button.getStatus() == CellStatus.BOMB) {
                         button.setText("*");
                         button.setStyle(
                             "-fx-background-color: red; -fx-font-size: 20px"
                         );
                     }
-                    else {
+                    else if (button.getCountOfMines() != 0){
                         button.setText(String.valueOf(button.getCountOfMines()));
                         String color = colors.get(button.getCountOfMines());
                         button.setStyle("-fx-text-fill: %s; -fx-font-size: 24px; font-weight: bold".formatted(color));
+
+                    }
+                    else {
+                        Queue<Cell> queue = new LinkedList<Cell>();
+                        queue.offer(button);
+                        button.setText("");
+//                        openBFS(queue, result);
                     }
                     button.setDisable(true);
-                    button.setTextFill(Color.BLACK);
                 });
                 pane.add(button, x, y);
                 result[y][x] = button;
@@ -56,5 +61,28 @@ public class MinesweeperUtils {
             Map.entry(8, "magenta")
         )
     );
-
+//    public static void openBFS(Queue<Cell> queue, Cell[][] cells) {
+//        HashSet<Cell> checkedButtons = new HashSet<>();
+//        while (queue.size() > 0) {
+//            Cell button = queue.peek();
+//            int row = button.getRow();
+//            int column = button.getColumn();
+//
+//            for (int y = row - 1; y < row + 2; y++) {
+//                for (int x = column - 1; x < column + 2; x++) {
+//                    if (x != y) {
+//                        Cell currentNeighbour = cells[x][y];
+//                        if (currentNeighbour.getCountOfMines() != 0 ||
+//                            checkedButtons.contains(currentNeighbour)
+//                        ) {
+//                            continue;
+//                        }
+//
+//                        queue.offer(currentNeighbour);
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
+

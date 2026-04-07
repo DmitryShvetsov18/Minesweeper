@@ -30,7 +30,7 @@ public class Minesweeper {
     public void printCells() {
         for (int y = 1; y < rows+1; y++) {
             for (int x = 1; x < columns+1; x++) {
-                if (cells[y][x].IsMine()) {
+                if (cells[y][x].getStatus() == CellStatus.BOMB) {
                     System.out.print("B");
                 }
                 else {
@@ -46,7 +46,7 @@ public class Minesweeper {
         for (int i = 1; i < rows + 1; i++) {
             for (int j = 1; j < columns + 1; j++) {
                 if (minesPlaces.contains(cells[i][j].getNumber())) {
-                    cells[i][j].setIsMine(true);
+                    cells[i][j].setStatus(CellStatus.BOMB);
                 }
             }
         }
@@ -69,7 +69,7 @@ public class Minesweeper {
                 int countMines = 0;
                 for (int i = y-1; i < y+2; i++) {
                     for (int j = x-1; j < x+2; j++) {
-                        if (cells[j][i].IsMine()) {
+                        if (cells[j][i].getStatus() == CellStatus.BOMB) {
                             countMines += 1;
                         }
                     }
@@ -80,3 +80,4 @@ public class Minesweeper {
         }
     }
 }
+

@@ -4,7 +4,7 @@ import javafx.scene.control.Button;
 
 public class Cell extends Button {
 
-    private boolean isMine = false;
+    private CellStatus status;
     private int countOfMines;
     private final int row;
     private final int column;
@@ -15,6 +15,8 @@ public class Cell extends Button {
         this.row = row;
         this.column = column;
         this.number = number;
+        this.status = CellStatus.DEFAULT;
+        this.countOfMines = -1;
     }
     public Cell(int row, int column) {
         super();
@@ -23,15 +25,20 @@ public class Cell extends Button {
         this.number = -1;
     }
 
+    public int getRow() {
+        return row;
+    }
+    public int getColumn() {
+        return column;
+    }
     public int getNumber() {
         return number;
     }
-
-    public void setIsMine(boolean boolValue) {
-        isMine = boolValue;
+    public CellStatus getStatus() {
+        return status;
     }
-    public boolean IsMine() {
-        return isMine;
+    public void setStatus(CellStatus status) {
+        this.status = status;
     }
 
     public void setCountOfMines(int countOfMines) {
@@ -43,6 +50,12 @@ public class Cell extends Button {
 
     @Override
     public String toString() {
-        return "Клетка" + "_" + number + "_" + isMine;
+        return "Клетка" + "_" + number + "_" + status;
     }
+}
+
+enum CellStatus {
+    DEFAULT,
+    BOMB,
+    FLAG
 }
