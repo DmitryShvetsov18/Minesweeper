@@ -57,5 +57,6 @@ public class Cell extends Button {
 enum CellStatus {
     DEFAULT,
     BOMB,
-    FLAG
+    FLAG,
+    OPENED
 }

@@ -22,6 +22,7 @@ public class MinesweeperUtils {
                 button.setStyle("-fx-font-size: 20px");
                 button.setOnAction(e -> {
                     System.out.println(button);
+                    button.setStatus(CellStatus.OPENED);
                     if (button.getStatus() == CellStatus.BOMB) {
                         button.setText("*");
                         button.setStyle(
@@ -35,10 +36,8 @@ public class MinesweeperUtils {
 
                     }
                     else {
-                        Queue<Cell> queue = new LinkedList<Cell>();
-                        queue.offer(button);
                         button.setText("");
-//                        openBFS(queue, result);
+                        openBFS(result, button);
                     }
                     button.setDisable(true);
                 });
@@ -61,28 +60,48 @@ public class MinesweeperUtils {
             Map.entry(8, "magenta")
         )
     );
-//    public static void openBFS(Queue<Cell> queue, Cell[][] cells) {
-//        HashSet<Cell> checkedButtons = new HashSet<>();
-//        while (queue.size() > 0) {
-//            Cell button = queue.peek();
-//            int row = button.getRow();
-//            int column = button.getColumn();
-//
-//            for (int y = row - 1; y < row + 2; y++) {
-//                for (int x = column - 1; x < column + 2; x++) {
-//                    if (x != y) {
-//                        Cell currentNeighbour = cells[x][y];
-//                        if (currentNeighbour.getCountOfMines() != 0 ||
-//                            checkedButtons.contains(currentNeighbour)
-//                        ) {
-//                            continue;
-//                        }
-//
-//                        queue.offer(currentNeighbour);
-//                    }
-//                }
-//            }
-//        }
-//    }
+    public static void openBFS(Cell[][] cells, Cell startButton) {
+        HashSet<Cell> checkedButtons = new HashSet<>();
+        Queue<Cell> queue = new LinkedList<Cell>();
+        queue.offer(startButton);
+
+        while (!queue.isEmpty()) {
+            Cell button = queue.poll();
+            int row = button.getRow();
+            int column = button.getColumn();
+
+            for (int y = row - 1; y < row + 2; y++) {
+                for (int x = column - 1; x < column + 2; x++) {
+                    if (x != column || y != row) {
+                        Cell currentNeighbour = cells[y][x];
+                        if (currentNeighbour.getCountOfMines() == 0 &&
+                            !checkedButtons.contains(currentNeighbour) &&
+                                currentNeighbour.getStatus() == CellStatus.DEFAULT &&
+                                !queue.contains(currentNeighbour)
+                        ) {
+                            queue.offer(currentNeighbour);
+                        }
+                        else if (currentNeighbour.getCountOfMines() > 0 &&
+                            currentNeighbour.getStatus() == CellStatus.DEFAULT
+                        ) {
+                            currentNeighbour.setText(
+                                String.valueOf(currentNeighbour.getCountOfMines())
+                            );
+                            String color = colors.get(currentNeighbour.getCountOfMines());
+                            currentNeighbour.setStyle(
+                                "-fx-text-fill: %s; -fx-font-size: 24px; font-weight: bold".formatted(color)
+                            );
+                            currentNeighbour.setDisable(true);
+                            currentNeighbour.setStatus(CellStatus.OPENED);
+                        }
+                    }
+                }
+            }
+            button.setText("");
+            button.setDisable(true);
+            button.setStatus(CellStatus.OPENED);
+            checkedButtons.add(button);
+        }
+    }
 }
 

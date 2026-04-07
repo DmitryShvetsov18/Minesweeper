@@ -20,7 +20,7 @@ public class MinesweeperGUI extends Application {
 
         gameBoard.printCells();
         gridPane.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(gridPane, 1000, 1000);
+        Scene scene = new Scene(gridPane, 700, 700);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Сапер 2077");
         primaryStage.show();
