@@ -1,0 +1,358 @@
+/* ────────────────────────────────────────────────
+   ГЛОБАЛЬНЫЕ СТИЛИ И ФОН
+   ──────────────────────────────────────────────── */
+
+.root {
+    -fx-font-family: "Courier New", monospace;
+}
+
+.dark-root {
+    -fx-background-color: #0a0e1a;
+    -fx-padding: 40;
+}
+
+/* Контейнер для игрового поля (рамка с тенью) */
+.game-board-container {
+    -fx-background-color: #111827;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 20, 0, 0, 5);
+    -fx-padding: 10;
+}
+
+/* ────────────────────────────────────────────────
+   ЗАСТАВКА И МЕНЮ
+   ──────────────────────────────────────────────── */
+
+.splash-title {
+    -fx-font-size: 52px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #00e5ff;
+    -fx-font-family: "Courier New";
+    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.4), 10, 0, 0, 0);
+}
+
+.splash-sub {
+    -fx-font-size: 14px;
+    -fx-text-fill: #64748b;
+    -fx-font-family: "Courier New";
+    -fx-padding: 0 0 20 0;
+}
+
+.screen-title {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e2e8f0;
+    -fx-font-family: "Courier New";
+    -fx-letter-spacing: 3;
+    -fx-padding: 0 0 20 0;
+}
+
+/* ────────────────────────────────────────────────
+   КНОПКИ МЕНЮ
+   ──────────────────────────────────────────────── */
+
+.menu-btn {
+    -fx-font-family: "Courier New";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 11 20 11 20;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease;
+}
+
+.menu-btn:hover {
+    -fx-opacity: 0.8;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.menu-btn:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+.btn-accent {
+    -fx-border-color: #00e5ff;
+    -fx-text-fill: #00e5ff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.2), 5, 0, 0, 0);
+}
+
+.btn-danger {
+    -fx-border-color: #e24b4a;
+    -fx-text-fill: #e24b4a;
+}
+
+.btn-muted {
+    -fx-border-color: #64748b;
+    -fx-text-fill: #64748b;
+}
+
+/* ────────────────────────────────────────────────
+   КАРТОЧКИ УРОВНЕЙ
+   ──────────────────────────────────────────────── */
+
+.level-card {
+    -fx-background-color: #111827;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);
+    -fx-transition: all 0.2s ease;
+}
+
+.level-card:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 15, 0, 0, 5);
+}
+
+.card-easy:hover {
+    -fx-border-color: #4ade80;
+    -fx-background-color: #0f1f14;
+}
+
+.card-medium:hover {
+    -fx-border-color: #00e5ff;
+    -fx-background-color: #0a1a1f;
+}
+
+.card-hard:hover {
+    -fx-border-color: #e24b4a;
+    -fx-background-color: #1f0f0f;
+}
+
+.card-icon {
+    -fx-font-size: 28px;
+    -fx-font-family: "Courier New";
+}
+
+.card-name {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Courier New";
+    -fx-letter-spacing: 2;
+}
+
+.card-desc {
+    -fx-font-size: 12px;
+    -fx-text-fill: #64748b;
+    -fx-font-family: "Courier New";
+}
+
+.card-easy {
+    -fx-text-fill: #4ade80;
+}
+
+.card-medium {
+    -fx-text-fill: #00e5ff;
+}
+
+.card-hard {
+    -fx-text-fill: #e24b4a;
+}
+
+/* ────────────────────────────────────────────────
+   МЕНЮ БАР (КНОПКА "ИГРА")
+   ──────────────────────────────────────────────── */
+
+.custom-menu-bar {
+    -fx-background-color: #111827;
+    /* Темный фон меню */
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Стиль надписи "ИГРА" */
+.custom-menu-bar .label {
+    -fx-text-fill: #e2e8f0;
+    -fx-font-family: "Courier New";
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+/* Выпадающее меню */
+.context-menu {
+    -fx-background-color: #111827;
+    -fx-border-color: #1e3a5f;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 10, 0, 0, 5);
+}
+
+.context-menu .menu-item {
+    -fx-text-fill: #cbd5e1;
+    -fx-font-family: "Courier New";
+    -fx-padding: 5 10 5 10;
+}
+
+.context-menu .menu-item:hover {
+    -fx-background-color: #1e3a5f;
+    -fx-text-fill: #ffffff;
+}
+
+.context-menu .separator .line {
+    -fx-border-color: #1e3a5f;
+}
+
+.hud-bar {
+    -fx-background-color: #111827;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 0 0 1 0;
+}
+
+.hud-label {
+    -fx-font-family: "Courier New";
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e2e8f0;
+    -fx-background-color: #0d1117;
+    -fx-padding: 5 12;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+}
+
+/* Кнопка рестарта (круглая) */
+.hud-restart {
+    -fx-background-color: #00e5ff;
+    /* Неоновый голубой */
+    -fx-text-fill: #0a0e1a;
+    /* Темный символ */
+    -fx-font-size: 24px;
+    /* Крупный символ ↺ */
+    -fx-font-weight: bold;
+    -fx-pref-width: 45;
+    -fx-pref-height: 45;
+    -fx-max-width: 45;
+    -fx-max-height: 45;
+    -fx-min-width: 45;
+    -fx-min-height: 45;
+    -fx-background-radius: 22.5;
+    /* Идеальный круг */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.5), 10, 0, 0, 0);
+    -fx-padding: 0;
+    -fx-alignment: center;
+}
+
+.hud-restart:hover {
+    -fx-background-color: #ffffff;
+    /* Белый при наведении */
+    -fx-text-fill: #00e5ff;
+    /* Голубой символ */
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.8), 15, 0, 0, 0);
+}
+
+.hud-restart:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+/* ────────────────────────────────────────────────
+   ИГРОВОЕ ПОЛЕ (КЛЕТКИ)
+   ──────────────────────────────────────────────── */
+
+/* Базовый стиль закрытой клетки */
+.cell-btn {
+    -fx-background-color: #1a2235;
+    -fx-border-color: #2d3f5e;
+    -fx-border-width: 1;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 1);
+    -fx-transition: all 0.1s ease;
+}
+
+.cell-btn:hover {
+    -fx-background-color: #243347;
+    -fx-border-color: #00e5ff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.2), 5, 0, 0, 0);
+}
+
+/* Открытая клетка (с цифрой или пустая) */
+.cell-open {
+    -fx-background-color: #0d1117;
+    -fx-border-color: #0d1117;
+    /* Убираем видимую границу для чистоты сетки */
+    -fx-effect: none;
+}
+
+/* Пустая открытая клетка (0 мин вокруг) */
+.cell-empty {
+    -fx-background-color: #0d1117;
+    -fx-border-color: #0d1117;
+}
+
+/* Клетка с миной (взрыв) */
+.cell-mine {
+    -fx-background-color: #2a0a0a;
+    -fx-border-color: #e24b4a;
+    -fx-effect: dropshadow(gaussian, rgba(226, 75, 74, 0.4), 10, 0, 0, 0);
+}
+
+/* Клетка с флагом */
+.cell-flag {
+    -fx-background-color: #1a2235;
+    -fx-border-color: #ff6b35;
+    -fx-effect: dropshadow(gaussian, rgba(255, 107, 53, 0.3), 5, 0, 0, 0);
+}
+
+/* ────────────────────────────────────────────────
+   ВСПЛЫВАЮЩИЕ ОКНА (GAME OVER / WIN)
+   ──────────────────────────────────────────────── */
+
+/* Стили для кнопок внутри попапа (если нужно переопределить) */
+.popup-btn {
+    -fx-font-family: "Courier New";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+    -fx-min-width: 220;
+}
+
+/* Текст результатов */
+.result-title {
+    -fx-font-size: 54px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Courier New";
+}
+
+.win-text {
+    -fx-text-fill: #4ade80;
+    -fx-effect: dropshadow(gaussian, rgba(74, 222, 128, 0.4), 10, 0, 0, 0);
+}
+
+.lose-text {
+    -fx-text-fill: #e24b4a;
+    -fx-effect: dropshadow(gaussian, rgba(226, 75, 74, 0.4), 10, 0, 0, 0);
+}
+
+.result-sub {
+    -fx-font-size: 13px;
+    -fx-text-fill: #64748b;
+    -fx-font-family: "Courier New";
+}
+
+.result-stat {
+    -fx-font-size: 18px;
+    -fx-text-fill: #e2e8f0;
+    -fx-font-family: "Courier New";
+    -fx-padding: 0 0 10 0;
+}
