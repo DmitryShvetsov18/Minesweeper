@@ -194,4 +194,16 @@ public class GameBoard {
             win = true;
         }
     }
+
+    public List<Integer> getMinesPositions(){
+        List<Integer> positions = new ArrayList<>();
+        for (int y = 1; y <= rows; y++){
+            for (int x = 1; x <= columns; x++){
+                if (cells[y][x].IsMine()){
+                    positions.add(cells[y][x].getNumber());
+                }
+            }
+        }
+        return positions;
+    }
 }

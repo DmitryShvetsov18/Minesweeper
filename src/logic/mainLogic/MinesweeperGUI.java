@@ -12,12 +12,16 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import gui.SplashScreen;
 import javafx.scene.paint.Color;
+import logic.features.GameRecord;
+import logic.features.SessionStats;
+import logic.features.SessionLogger;
 
 public class MinesweeperGUI extends Application {
 
     private GameController controller;
     private GridPane gameGrid;
     private Stage primaryStage;
+    private final SessionStats sessionStats = new SessionStats();
 
     // HUD
     private Label timerLabel;
@@ -31,6 +35,13 @@ public class MinesweeperGUI extends Application {
         primaryStage.setTitle("Сапер 2077");
         primaryStage.setScene(new SplashScreen(primaryStage, this).getScene());
         primaryStage.show();
+    }
+
+    @Override
+    public void stop() {
+        if (sessionStats.getTotalGames() > 0) {
+            SessionLogger.save(sessionStats);
+        }
     }
 
     public void startNewGame(int rows, int columns, int mines) {
@@ -153,12 +164,32 @@ public class MinesweeperGUI extends Application {
 
     public void showWin(int seconds) {
         stopTimer();
+        sessionStats.addRecord(new GameRecord(
+                detectDifficulty(),
+                seconds,
+                true,
+                controller.getMinesPositions()
+        ));
         gui.GameOverPopup.showWin(primaryStage, seconds, this, controller.getRows(),
                 controller.getColumns(), controller.getMines());
     }
 
+    // Определяем сложность по размеру поля
+    private GameRecord.Difficulty detectDifficulty() {
+        int mines = controller.getMines();
+        if (mines <= 10)  return GameRecord.Difficulty.EASY;
+        if (mines <= 40)  return GameRecord.Difficulty.NORMAL;
+        return GameRecord.Difficulty.HARD;
+    }
+
     public void showLose(int seconds) {
         stopTimer();
+        sessionStats.addRecord(new GameRecord(
+                detectDifficulty(),
+                seconds,
+                false,
+                controller.getMinesPositions()
+        ));
         gui.GameOverPopup.showLose(primaryStage, seconds, this, controller.getRows(),
                 controller.getColumns(), controller.getMines());
     }

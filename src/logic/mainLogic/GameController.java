@@ -6,6 +6,8 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import javafx.scene.input.MouseButton;
 
+import java.util.List;
+
 public class GameController {
 
     private final GameBoard gameBoard;
@@ -36,6 +38,10 @@ public class GameController {
 
     public int getMines() {
         return gameBoard.getMinesCount();
+    }
+
+    public List<Integer> getMinesPositions() {
+        return gameBoard.getMinesPositions();
     }
 
     private void setupUI() {
