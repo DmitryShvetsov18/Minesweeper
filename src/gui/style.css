@@ -1,5 +1,5 @@
 /* ────────────────────────────────────────────────
-   ГЛОБАЛЬНЫЕ СТИЛИ И ФОН
+   ГЛОБАЛЬНЫЕ СТИЛИ
    ──────────────────────────────────────────────── */
 
 .root {
@@ -7,47 +7,41 @@
 }
 
 .dark-root {
-    -fx-background-color: #0a0e1a;
+    -fx-background-color: transparent;
     -fx-padding: 40;
 }
 
-/* Контейнер для игрового поля (рамка с тенью) */
-.game-board-container {
-    -fx-background-color: #111827;
-    -fx-border-color: #1e3a5f;
-    -fx-border-width: 2;
-    -fx-border-radius: 12;
-    -fx-background-radius: 12;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 20, 0, 0, 5);
-    -fx-padding: 10;
-}
-
 /* ────────────────────────────────────────────────
-   ЗАСТАВКА И МЕНЮ
+   ЗАСТАВКА
    ──────────────────────────────────────────────── */
 
 .splash-title {
-    -fx-font-size: 52px;
+    -fx-font-size: 72px;
     -fx-font-weight: bold;
     -fx-text-fill: #00e5ff;
     -fx-font-family: "Courier New";
-    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.4), 10, 0, 0, 0);
+    -fx-effect:
+        dropshadow(gaussian, rgba(0, 229, 255, 0.9), 30, 0.4, 0, 0),
+        dropshadow(gaussian, rgba(0, 229, 255, 0.5), 60, 0.2, 0, 0);
 }
 
 .splash-sub {
-    -fx-font-size: 14px;
-    -fx-text-fill: #64748b;
+    -fx-font-size: 13px;
+    -fx-text-fill: #8899aa;
     -fx-font-family: "Courier New";
     -fx-padding: 0 0 20 0;
 }
 
 .screen-title {
-    -fx-font-size: 30px;
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
-    -fx-text-fill: #e2e8f0;
+    -fx-text-fill: #00e5ff;
     -fx-font-family: "Courier New";
-    -fx-letter-spacing: 3;
-    -fx-padding: 0 0 20 0;
+    -fx-letter-spacing: 6;
+    -fx-padding: 0 0 4 0;
+    -fx-effect:
+        dropshadow(gaussian, rgba(0, 229, 255, 0.9), 20, 0.4, 0, 0),
+        dropshadow(gaussian, rgba(0, 229, 255, 0.4), 40, 0, 0, 0);
 }
 
 /* ────────────────────────────────────────────────
@@ -56,41 +50,93 @@
 
 .menu-btn {
     -fx-font-family: "Courier New";
-    -fx-font-size: 14px;
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
-    -fx-background-color: transparent;
-    -fx-border-radius: 4;
-    -fx-background-radius: 4;
-    -fx-padding: 11 20 11 20;
+    -fx-background-color: rgba(10, 20, 40, 0.7);
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 13 30 13 30;
     -fx-cursor: hand;
-    -fx-transition: all 0.2s ease;
+    -fx-min-width: 260;
 }
 
 .menu-btn:hover {
-    -fx-opacity: 0.8;
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
 }
 
 .menu-btn:pressed {
-    -fx-scale-x: 0.98;
-    -fx-scale-y: 0.98;
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
 }
 
 .btn-accent {
     -fx-border-color: #00e5ff;
+    -fx-border-width: 2;
     -fx-text-fill: #00e5ff;
-    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.2), 5, 0, 0, 0);
+    -fx-background-color: rgba(0, 229, 255, 0.08);
+    -fx-effect:
+        dropshadow(gaussian, rgba(0, 229, 255, 0.5), 15, 0, 0, 0),
+        innershadow(gaussian, rgba(0, 229, 255, 0.1), 8, 0, 0, 0);
+}
+
+.btn-accent:hover {
+    -fx-background-color: rgba(0, 229, 255, 0.18);
+    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.8), 25, 0, 0, 0);
 }
 
 .btn-danger {
     -fx-border-color: #e24b4a;
+    -fx-border-width: 2;
     -fx-text-fill: #e24b4a;
+    -fx-background-color: rgba(226, 75, 74, 0.08);
+    -fx-effect:
+        dropshadow(gaussian, rgba(226, 75, 74, 0.5), 15, 0, 0, 0),
+        innershadow(gaussian, rgba(226, 75, 74, 0.1), 8, 0, 0, 0);
+}
+
+.btn-danger:hover {
+    -fx-background-color: rgba(226, 75, 74, 0.18);
+    -fx-effect: dropshadow(gaussian, rgba(226, 75, 74, 0.8), 25, 0, 0, 0);
 }
 
 .btn-muted {
-    -fx-border-color: #64748b;
-    -fx-text-fill: #64748b;
+    -fx-border-color: #4a6080;
+    -fx-border-width: 1.5;
+    -fx-text-fill: #8899aa;
+    -fx-background-color: rgba(10, 20, 40, 0.6);
+    -fx-effect: dropshadow(gaussian, rgba(0, 150, 255, 0.2), 10, 0, 0, 0);
+}
+
+.btn-muted:hover {
+    -fx-border-color: #00e5ff;
+    -fx-text-fill: #00e5ff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.4), 15, 0, 0, 0);
+}
+
+.btn-back {
+    -fx-border-color: #2a5080;
+    -fx-border-width: 1.5;
+    -fx-text-fill: #7ab0d8;
+    -fx-background-color: rgba(10, 25, 50, 0.65);
+    -fx-effect:
+        dropshadow(gaussian, rgba(0, 150, 255, 0.35), 14, 0, 0, 0),
+        innershadow(gaussian, rgba(0, 150, 255, 0.08), 8, 0, 0, 0);
+    -fx-min-width: 300;
+}
+
+.btn-back:hover {
+    -fx-border-color: #00e5ff;
+    -fx-text-fill: #00e5ff;
+    -fx-background-color: rgba(0, 229, 255, 0.10);
+    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.6), 22, 0, 0, 0);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.btn-back:pressed {
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
 }
 
 /* ────────────────────────────────────────────────
@@ -98,54 +144,54 @@
    ──────────────────────────────────────────────── */
 
 .level-card {
-    -fx-background-color: #111827;
-    -fx-border-color: #1e3a5f;
-    -fx-border-width: 1;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
+    -fx-background-color: rgba(8, 16, 28, 0.82);
+    -fx-border-width: 2;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
     -fx-cursor: hand;
-    -fx-padding: 20;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);
-    -fx-transition: all 0.2s ease;
+    -fx-padding: 32 24 32 24;
 }
 
-.level-card:hover {
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 15, 0, 0, 5);
-}
-
-.card-easy:hover {
+.level-card.card-easy {
     -fx-border-color: #4ade80;
-    -fx-background-color: #0f1f14;
+    -fx-effect:
+        dropshadow(gaussian, rgba(74, 222, 128, 0.7), 18, 0.2, 0, 0),
+        dropshadow(gaussian, rgba(74, 222, 128, 0.3), 35, 0, 0, 0);
 }
 
-.card-medium:hover {
+.level-card.card-easy:hover {
+    -fx-background-color: rgba(10, 30, 18, 0.9);
+    -fx-effect:
+        dropshadow(gaussian, rgba(74, 222, 128, 1.0), 28, 0.4, 0, 0),
+        dropshadow(gaussian, rgba(74, 222, 128, 0.5), 55, 0, 0, 0);
+}
+
+.level-card.card-medium {
     -fx-border-color: #00e5ff;
-    -fx-background-color: #0a1a1f;
+    -fx-effect:
+        dropshadow(gaussian, rgba(0, 229, 255, 0.7), 18, 0.2, 0, 0),
+        dropshadow(gaussian, rgba(0, 229, 255, 0.3), 35, 0, 0, 0);
 }
 
-.card-hard:hover {
+.level-card.card-medium:hover {
+    -fx-background-color: rgba(6, 22, 36, 0.9);
+    -fx-effect:
+        dropshadow(gaussian, rgba(0, 229, 255, 1.0), 28, 0.4, 0, 0),
+        dropshadow(gaussian, rgba(0, 229, 255, 0.5), 55, 0, 0, 0);
+}
+
+.level-card.card-hard {
     -fx-border-color: #e24b4a;
-    -fx-background-color: #1f0f0f;
+    -fx-effect:
+        dropshadow(gaussian, rgba(226, 75, 74, 0.7), 18, 0.2, 0, 0),
+        dropshadow(gaussian, rgba(226, 75, 74, 0.3), 35, 0, 0, 0);
 }
 
-.card-icon {
-    -fx-font-size: 28px;
-    -fx-font-family: "Courier New";
-}
-
-.card-name {
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
-    -fx-font-family: "Courier New";
-    -fx-letter-spacing: 2;
-}
-
-.card-desc {
-    -fx-font-size: 12px;
-    -fx-text-fill: #64748b;
-    -fx-font-family: "Courier New";
+.level-card.card-hard:hover {
+    -fx-background-color: rgba(28, 10, 10, 0.9);
+    -fx-effect:
+        dropshadow(gaussian, rgba(226, 75, 74, 1.0), 28, 0.4, 0, 0),
+        dropshadow(gaussian, rgba(226, 75, 74, 0.5), 55, 0, 0, 0);
 }
 
 .card-easy {
@@ -160,174 +206,275 @@
     -fx-text-fill: #e24b4a;
 }
 
+.card-icon {
+    -fx-font-size: 48px;
+    -fx-font-family: "Courier New";
+}
+
+.card-name {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Courier New";
+    -fx-letter-spacing: 3;
+}
+
+.card-desc {
+    -fx-font-size: 12px;
+    -fx-text-fill: #607090;
+    -fx-font-family: "Courier New";
+}
+
 /* ────────────────────────────────────────────────
-   МЕНЮ БАР (КНОПКА "ИГРА")
+   CONTEXT MENU
    ──────────────────────────────────────────────── */
 
-.custom-menu-bar {
-    -fx-background-color: #111827;
-    /* Темный фон меню */
-    -fx-border-color: #1e3a5f;
-    -fx-border-width: 0 0 1 0;
-}
-
-/* Стиль надписи "ИГРА" */
-.custom-menu-bar .label {
-    -fx-text-fill: #e2e8f0;
-    -fx-font-family: "Courier New";
-    -fx-font-weight: bold;
-    -fx-font-size: 14px;
-}
-
-/* Выпадающее меню */
 .context-menu {
-    -fx-background-color: #111827;
+    -fx-background-color: rgba(10, 15, 28, 0.97);
     -fx-border-color: #1e3a5f;
-    -fx-border-radius: 4;
-    -fx-background-radius: 4;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 10, 0, 0, 5);
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.15), 20, 0, 0, 5);
+    -fx-padding: 4 0 4 0;
 }
 
 .context-menu .menu-item {
-    -fx-text-fill: #cbd5e1;
+    -fx-background-color: transparent;
+    -fx-padding: 8 16 8 16;
+}
+
+.context-menu .menu-item .label {
+    -fx-text-fill: #ffffff;
     -fx-font-family: "Courier New";
-    -fx-padding: 5 10 5 10;
+    -fx-font-size: 13px;
 }
 
 .context-menu .menu-item:hover {
-    -fx-background-color: #1e3a5f;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: rgba(0, 229, 255, 0.12);
+}
+
+.context-menu .menu-item:hover .label {
+    -fx-text-fill: #00e5ff;
+}
+
+.context-menu .menu-item:focused .label {
+    -fx-text-fill: #00e5ff;
 }
 
 .context-menu .separator .line {
     -fx-border-color: #1e3a5f;
+    -fx-border-width: 1 0 0 0;
 }
 
+/* ────────────────────────────────────────────────
+   HUD
+   ──────────────────────────────────────────────── */
+
 .hud-bar {
-    -fx-background-color: #111827;
+    -fx-background-color: rgba(8, 14, 26, 0.85);
     -fx-border-color: #1e3a5f;
-    -fx-border-width: 0 0 1 0;
+    -fx-border-width: 0 0 1.5 0;
 }
 
 .hud-label {
+    -fx-background-color: rgba(10, 17, 30, 0.75);
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
     -fx-font-family: "Courier New";
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-text-fill: #e2e8f0;
-    -fx-background-color: #0d1117;
-    -fx-padding: 5 12;
-    -fx-border-radius: 4;
-    -fx-background-radius: 4;
-    -fx-border-color: #1e3a5f;
-    -fx-border-width: 1;
+    -fx-padding: 6 16;
 }
 
-/* Кнопка рестарта (круглая) */
 .hud-restart {
-    -fx-background-color: #00e5ff;
-    /* Неоновый голубой */
-    -fx-text-fill: #0a0e1a;
-    /* Темный символ */
-    -fx-font-size: 24px;
-    /* Крупный символ ↺ */
+    -fx-background-color: radial-gradient(center 50% 30%, radius 70%, #00e5ff 0%, #007a8a 60%, #004d5e 100%);
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-pref-width: 45;
-    -fx-pref-height: 45;
-    -fx-max-width: 45;
-    -fx-max-height: 45;
-    -fx-min-width: 45;
-    -fx-min-height: 45;
-    -fx-background-radius: 22.5;
-    /* Идеальный круг */
+    -fx-pref-width: 52;
+    -fx-pref-height: 52;
+    -fx-max-width: 52;
+    -fx-max-height: 52;
+    -fx-min-width: 52;
+    -fx-min-height: 52;
+    -fx-background-radius: 26;
+    -fx-border-radius: 26;
+    -fx-border-color: rgba(0, 229, 255, 0.6);
+    -fx-border-width: 2;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.5), 10, 0, 0, 0);
     -fx-padding: 0;
     -fx-alignment: center;
+    -fx-effect:
+        dropshadow(gaussian, rgba(0, 229, 255, 0.8), 18, 0.3, 0, 0),
+        dropshadow(gaussian, rgba(0, 229, 255, 0.4), 35, 0, 0, 0);
 }
 
 .hud-restart:hover {
-    -fx-background-color: #ffffff;
-    /* Белый при наведении */
-    -fx-text-fill: #00e5ff;
-    /* Голубой символ */
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
-    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.8), 15, 0, 0, 0);
+    -fx-background-color: radial-gradient(center 50% 30%, radius 70%, #40f0ff 0%, #00a0b5 60%, #006070 100%);
+    -fx-scale-x: 1.12;
+    -fx-scale-y: 1.12;
+    -fx-effect:
+        dropshadow(gaussian, rgba(0, 229, 255, 1.0), 25, 0.5, 0, 0),
+        dropshadow(gaussian, rgba(0, 229, 255, 0.5), 50, 0, 0, 0);
 }
 
 .hud-restart:pressed {
-    -fx-scale-x: 0.95;
-    -fx-scale-y: 0.95;
+    -fx-scale-x: 0.94;
+    -fx-scale-y: 0.94;
+}
+
+/* Кнопка настроек */
+.hud-settings-btn {
+    -fx-background-color: rgba(10, 17, 30, 0.75);
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+    -fx-alignment: center;
+    /* FIX 2: показываем текст (шестерёнку), а не graphic */
+    -fx-content-display: text-only;
+}
+
+.hud-settings-btn:hover {
+    -fx-border-color: #00e5ff;
+    -fx-background-color: rgba(0, 229, 255, 0.10);
+    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.5), 10, 0, 0, 0);
+}
+
+/* FIX 2: полностью убираем стрелку-дропдаун чтобы она не смещала контент */
+.hud-settings-btn .arrow-button {
+    -fx-pref-width: 0;
+    -fx-min-width: 0;
+    -fx-max-width: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.hud-settings-btn .arrow {
+    -fx-background-color: transparent;
+    -fx-pref-width: 0;
+    -fx-min-width: 0;
+    -fx-max-width: 0;
+    -fx-shape: "";
+}
+
+/* FIX 2: выравниваем label внутри MenuButton строго по центру */
+.hud-settings-btn > .label {
+    -fx-padding: 0;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-text-fill: #ffffff;
+}
+
+/* ────────────────────────────────────────────────
+   SCROLL PANE
+   ──────────────────────────────────────────────── */
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical,
+.scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: rgba(10, 17, 30, 0.6);
+    -fx-border-color: #1e3a5f;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #1e3a5f;
+    -fx-background-radius: 4;
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: #00e5ff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.4), 6, 0, 0, 0);
+}
+
+.scroll-pane .scroll-bar .increment-button,
+.scroll-pane .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 2;
+}
+
+.scroll-pane .corner {
+    -fx-background-color: transparent;
 }
 
 /* ────────────────────────────────────────────────
    ИГРОВОЕ ПОЛЕ (КЛЕТКИ)
    ──────────────────────────────────────────────── */
 
-/* Базовый стиль закрытой клетки */
 .cell-btn {
-    -fx-background-color: #1a2235;
-    -fx-border-color: #2d3f5e;
+    -fx-background-color: rgba(20, 35, 65, 0.75);
+    -fx-border-color: rgba(37, 52, 80, 0.8);
     -fx-border-width: 1;
     -fx-background-radius: 4;
     -fx-border-radius: 4;
     -fx-cursor: hand;
-    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 1);
-    -fx-transition: all 0.1s ease;
 }
 
 .cell-btn:hover {
-    -fx-background-color: #243347;
+    -fx-background-color: rgba(37, 53, 80, 0.9);
     -fx-border-color: #00e5ff;
-    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.2), 5, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.35), 8, 0, 0, 0);
 }
 
-/* Открытая клетка (с цифрой или пустая) */
 .cell-open {
-    -fx-background-color: #0d1117;
-    -fx-border-color: #0d1117;
-    /* Убираем видимую границу для чистоты сетки */
+    -fx-background-color: rgba(8, 18, 35, 0.70);
+    -fx-border-color: rgba(20, 30, 46, 0.6);
+    -fx-border-width: 1;
     -fx-effect: none;
 }
 
-/* Пустая открытая клетка (0 мин вокруг) */
 .cell-empty {
-    -fx-background-color: #0d1117;
-    -fx-border-color: #0d1117;
+    -fx-background-color: rgba(5, 12, 25, 0.65);
+    -fx-border-color: rgba(15, 24, 32, 0.5);
 }
 
-/* Клетка с миной (взрыв) */
 .cell-mine {
-    -fx-background-color: #2a0a0a;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 60%, #3a0a0a 0%, #1a0505 100%);
     -fx-border-color: #e24b4a;
-    -fx-effect: dropshadow(gaussian, rgba(226, 75, 74, 0.4), 10, 0, 0, 0);
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(226, 75, 74, 0.6), 12, 0, 0, 0);
 }
 
-/* Клетка с флагом */
 .cell-flag {
-    -fx-background-color: #1a2235;
+    -fx-background-color: rgba(20, 35, 65, 0.75);
     -fx-border-color: #ff6b35;
-    -fx-effect: dropshadow(gaussian, rgba(255, 107, 53, 0.3), 5, 0, 0, 0);
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(255, 107, 53, 0.4), 8, 0, 0, 0);
 }
 
 /* ────────────────────────────────────────────────
-   ВСПЛЫВАЮЩИЕ ОКНА (GAME OVER / WIN)
+   ПОПАПЫ
    ──────────────────────────────────────────────── */
 
-/* Стили для кнопок внутри попапа (если нужно переопределить) */
 .popup-btn {
     -fx-font-family: "Courier New";
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-background-color: transparent;
-    -fx-border-radius: 4px;
-    -fx-background-radius: 4px;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
     -fx-padding: 10 20 10 20;
     -fx-cursor: hand;
     -fx-min-width: 220;
 }
 
-/* Текст результатов */
 .result-title {
     -fx-font-size: 54px;
     -fx-font-weight: bold;
@@ -336,17 +483,21 @@
 
 .win-text {
     -fx-text-fill: #4ade80;
-    -fx-effect: dropshadow(gaussian, rgba(74, 222, 128, 0.4), 10, 0, 0, 0);
+    -fx-effect:
+        dropshadow(gaussian, rgba(74, 222, 128, 0.8), 20, 0.3, 0, 0),
+        dropshadow(gaussian, rgba(74, 222, 128, 0.4), 40, 0, 0, 0);
 }
 
 .lose-text {
     -fx-text-fill: #e24b4a;
-    -fx-effect: dropshadow(gaussian, rgba(226, 75, 74, 0.4), 10, 0, 0, 0);
+    -fx-effect:
+        dropshadow(gaussian, rgba(226, 75, 74, 0.8), 20, 0.3, 0, 0),
+        dropshadow(gaussian, rgba(226, 75, 74, 0.4), 40, 0, 0, 0);
 }
 
 .result-sub {
     -fx-font-size: 13px;
-    -fx-text-fill: #64748b;
+    -fx-text-fill: #4a6080;
     -fx-font-family: "Courier New";
 }
 
