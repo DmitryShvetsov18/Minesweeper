@@ -1,7 +1,3 @@
-/* ────────────────────────────────────────────────
-   ГЛОБАЛЬНЫЕ СТИЛИ
-   ──────────────────────────────────────────────── */
-
 .root {
     -fx-font-family: "Courier New", monospace;
 }
@@ -11,9 +7,7 @@
     -fx-padding: 40;
 }
 
-/* ────────────────────────────────────────────────
-   ЗАСТАВКА
-   ──────────────────────────────────────────────── */
+/* ЗАСТАВКА */
 
 .splash-title {
     -fx-font-size: 72px;
@@ -44,9 +38,7 @@
         dropshadow(gaussian, rgba(0, 229, 255, 0.4), 40, 0, 0, 0);
 }
 
-/* ────────────────────────────────────────────────
-   КНОПКИ МЕНЮ
-   ──────────────────────────────────────────────── */
+/* КНОПКИ МЕНЮ */
 
 .menu-btn {
     -fx-font-family: "Courier New";
@@ -139,9 +131,7 @@
     -fx-scale-y: 0.97;
 }
 
-/* ────────────────────────────────────────────────
-   КАРТОЧКИ УРОВНЕЙ
-   ──────────────────────────────────────────────── */
+/* КАРТОЧКИ УРОВНЕЙ */
 
 .level-card {
     -fx-background-color: rgba(8, 16, 28, 0.82);
@@ -224,9 +214,7 @@
     -fx-font-family: "Courier New";
 }
 
-/* ────────────────────────────────────────────────
-   CONTEXT MENU
-   ──────────────────────────────────────────────── */
+/* КОНТЕКСТНОЕ МЕНЮ */
 
 .context-menu {
     -fx-background-color: rgba(10, 15, 28, 0.97);
@@ -252,10 +240,7 @@
     -fx-background-color: rgba(0, 229, 255, 0.12);
 }
 
-.context-menu .menu-item:hover .label {
-    -fx-text-fill: #00e5ff;
-}
-
+.context-menu .menu-item:hover .label,
 .context-menu .menu-item:focused .label {
     -fx-text-fill: #00e5ff;
 }
@@ -265,9 +250,7 @@
     -fx-border-width: 1 0 0 0;
 }
 
-/* ────────────────────────────────────────────────
-   HUD
-   ──────────────────────────────────────────────── */
+/* HUD */
 
 .hud-bar {
     -fx-background-color: rgba(8, 14, 26, 0.85);
@@ -325,7 +308,6 @@
     -fx-scale-y: 0.94;
 }
 
-/* Кнопка настроек */
 .hud-settings-btn {
     -fx-background-color: rgba(10, 17, 30, 0.75);
     -fx-border-color: #1e3a5f;
@@ -335,7 +317,6 @@
     -fx-cursor: hand;
     -fx-padding: 0;
     -fx-alignment: center;
-    /* FIX 2: показываем текст (шестерёнку), а не graphic */
     -fx-content-display: text-only;
 }
 
@@ -345,7 +326,6 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.5), 10, 0, 0, 0);
 }
 
-/* FIX 2: полностью убираем стрелку-дропдаун чтобы она не смещала контент */
 .hud-settings-btn .arrow-button {
     -fx-pref-width: 0;
     -fx-min-width: 0;
@@ -365,17 +345,14 @@
     -fx-shape: "";
 }
 
-/* FIX 2: выравниваем label внутри MenuButton строго по центру */
-.hud-settings-btn > .label {
+.hud-settings-btn>.label {
     -fx-padding: 0;
     -fx-alignment: center;
     -fx-text-alignment: center;
     -fx-text-fill: #ffffff;
 }
 
-/* ────────────────────────────────────────────────
-   SCROLL PANE
-   ──────────────────────────────────────────────── */
+/* SCROLL PANE */
 
 .scroll-pane {
     -fx-background-color: transparent;
@@ -414,9 +391,7 @@
     -fx-background-color: transparent;
 }
 
-/* ────────────────────────────────────────────────
-   ИГРОВОЕ ПОЛЕ (КЛЕТКИ)
-   ──────────────────────────────────────────────── */
+/* ИГРОВОЕ ПОЛЕ */
 
 .cell-btn {
     -fx-background-color: rgba(20, 35, 65, 0.75);
@@ -437,7 +412,6 @@
     -fx-background-color: rgba(8, 18, 35, 0.70);
     -fx-border-color: rgba(20, 30, 46, 0.6);
     -fx-border-width: 1;
-    -fx-effect: none;
 }
 
 .cell-empty {
@@ -459,9 +433,7 @@
     -fx-effect: dropshadow(gaussian, rgba(255, 107, 53, 0.4), 8, 0, 0, 0);
 }
 
-/* ────────────────────────────────────────────────
-   ПОПАПЫ
-   ──────────────────────────────────────────────── */
+/* ПОПАПЫ */
 
 .popup-btn {
     -fx-font-family: "Courier New";
