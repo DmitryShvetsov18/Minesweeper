@@ -5,33 +5,73 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import logic.mainLogic.MinesweeperGUI;
-import javafx.scene.paint.Color;
 
+/**
+ * Всплывающее окно результата игры.
+ * <p>
+ * Отображается поверх игрового поля по окончании партии — при победе или поражении. Окно модальное,
+ * прозрачного стиля, центрируется относительно родительского {@link Stage}.
+ * </p>
+ */
 public class GameOverPopup {
 
+        /** Запрещает создание экземпляров утилитного класса. */
+        private GameOverPopup() {}
+
+        /**
+         * Показывает окно поражения.
+         *
+         * @param owner родительское окно игры
+         * @param seconds время партии в секундах
+         * @param gui экземпляр главного приложения для перезапуска или выхода в меню
+         * @param rows количество строк игрового поля
+         * @param cols количество столбцов игрового поля
+         * @param mines количество мин на поле
+         */
         public static void showLose(Stage owner, int seconds, MinesweeperGUI gui, int rows,
                         int cols, int mines) {
                 show(owner, seconds, gui, rows, cols, mines, false);
         }
 
+        /**
+         * Показывает окно победы.
+         *
+         * @param owner родительское окно игры
+         * @param seconds время партии в секундах
+         * @param gui экземпляр главного приложения для перезапуска или выхода в меню
+         * @param rows количество строк игрового поля
+         * @param cols количество столбцов игрового поля
+         * @param mines количество мин на поле
+         */
         public static void showWin(Stage owner, int seconds, MinesweeperGUI gui, int rows, int cols,
                         int mines) {
                 show(owner, seconds, gui, rows, cols, mines, true);
         }
 
+        /**
+         * Внутренний метод построения и отображения попапа.
+         *
+         * @param owner родительское окно
+         * @param seconds время партии в секундах
+         * @param gui экземпляр главного приложения
+         * @param rows строки поля
+         * @param cols столбцы поля
+         * @param mines количество мин
+         * @param win {@code true} — победа, {@code false} — поражение
+         */
         private static void show(Stage owner, int seconds, MinesweeperGUI gui, int rows, int cols,
                         int mines, boolean win) {
-                // Используем Stage вместо Popup для надёжности
                 Stage popupStage = new Stage(StageStyle.TRANSPARENT);
                 popupStage.initModality(Modality.WINDOW_MODAL);
                 popupStage.initOwner(owner);
 
-                // ── содержимое ──────────────────────────────
                 Label title = new Label(win ? "ПОБЕДА!" : "ВЗРЫВ");
                 title.setStyle("-fx-font-family: 'Courier New'; -fx-font-size: 42px;"
                                 + "-fx-font-weight: bold; -fx-text-fill: "
@@ -68,22 +108,18 @@ public class GameOverPopup {
                                 + "-fx-border-radius: 12px;" + "-fx-background-radius: 12px;"
                                 + "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 20, 0, 0, 0);");
 
-                // Корневой узел с прозрачным фоном
                 StackPane root = new StackPane(box);
                 root.setStyle("-fx-background-color: transparent;");
                 root.setAlignment(Pos.CENTER);
 
                 Scene scene = new Scene(root);
-                scene.setFill(Color.TRANSPARENT); // КЛЮЧЕВОЙ МОМЕНТ!
-
-                // Загружаем стили, если нужно
+                scene.setFill(Color.TRANSPARENT);
                 scene.getStylesheets().add(
                                 GameOverPopup.class.getResource("/gui/style.css").toExternalForm());
 
                 popupStage.setScene(scene);
                 popupStage.sizeToScene();
 
-                // Центрируем относительно владельца
                 popupStage.setOnShown(e -> {
                         popupStage.setX(owner.getX()
                                         + (owner.getWidth() - popupStage.getWidth()) / 2);
@@ -94,6 +130,13 @@ public class GameOverPopup {
                 popupStage.show();
         }
 
+        /**
+         * Создаёт стилизованную кнопку для попапа.
+         *
+         * @param text текст кнопки
+         * @param color hex-цвет рамки и текста
+         * @return готовая кнопка с hover-эффектом
+         */
         private static Button popupBtn(String text, String color) {
                 Button b = new Button(text);
                 b.setStyle("-fx-font-family: 'Courier New'; -fx-font-size: 14px;"

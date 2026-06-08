@@ -12,97 +12,124 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import logic.mainLogic.MinesweeperGUI;
 
+/**
+ * Экран выбора уровня сложности.
+ * <p>
+ * Отображает три карточки уровней: лёгкий (9×9, 10 мин), средний (16×16, 40 мин) и сложный (16×30,
+ * 99 мин). Клик по карточке запускает новую игру с соответствующими параметрами.
+ * </p>
+ */
 public class LevelSelectScreen {
 
-    private final Scene scene;
+        private final Scene scene;
 
-    public LevelSelectScreen(Stage stage, MinesweeperGUI gui) {
-        Label title = new Label("ВЫБЕРИ  УРОВЕНЬ");
-        title.getStyleClass().add("screen-title");
-        title.setPadding(new javafx.geometry.Insets(0, 0, 2, 0));
+        /**
+         * Создаёт экран выбора уровня.
+         *
+         * @param stage основной {@link Stage} приложения
+         * @param gui экземпляр главного приложения для запуска игры
+         */
+        public LevelSelectScreen(Stage stage, MinesweeperGUI gui) {
+                Label title = new Label("ВЫБЕРИ  УРОВЕНЬ");
+                title.getStyleClass().add("screen-title");
+                title.setPadding(new javafx.geometry.Insets(0, 0, 2, 0));
 
-        // Декоративная линия под заголовком
-        javafx.scene.shape.Line lineLeft = new javafx.scene.shape.Line(0, 0, 120, 0);
-        lineLeft.setStroke(javafx.scene.paint.Color.web("#00e5ff"));
-        lineLeft.setStrokeWidth(1.5);
+                javafx.scene.shape.Line lineLeft = new javafx.scene.shape.Line(0, 0, 120, 0);
+                lineLeft.setStroke(javafx.scene.paint.Color.web("#00e5ff"));
+                lineLeft.setStrokeWidth(1.5);
 
-        javafx.scene.shape.Line lineRight = new javafx.scene.shape.Line(0, 0, 120, 0);
-        lineRight.setStroke(javafx.scene.paint.Color.web("#00e5ff"));
-        lineRight.setStrokeWidth(1.5);
+                javafx.scene.shape.Line lineRight = new javafx.scene.shape.Line(0, 0, 120, 0);
+                lineRight.setStroke(javafx.scene.paint.Color.web("#00e5ff"));
+                lineRight.setStrokeWidth(1.5);
 
-        javafx.scene.shape.Rectangle lineDot = new javafx.scene.shape.Rectangle(8, 8);
-        lineDot.setFill(javafx.scene.paint.Color.web("#00e5ff"));
-        lineDot.setEffect(
-                new javafx.scene.effect.DropShadow(10, javafx.scene.paint.Color.web("#00e5ff")));
-        lineDot.setRotate(45);
+                javafx.scene.shape.Rectangle lineDot = new javafx.scene.shape.Rectangle(8, 8);
+                lineDot.setFill(javafx.scene.paint.Color.web("#00e5ff"));
+                lineDot.setEffect(new javafx.scene.effect.DropShadow(10,
+                                javafx.scene.paint.Color.web("#00e5ff")));
+                lineDot.setRotate(45);
 
-        HBox divider = new HBox(10, lineLeft, lineDot, lineRight);
-        divider.setAlignment(Pos.CENTER);
+                HBox divider = new HBox(10, lineLeft, lineDot, lineRight);
+                divider.setAlignment(Pos.CENTER);
 
-        // FIX 4: правильные размеры — 9×9 10 мин, 16×16 40 мин, 16×30 99 мин
-        HBox cards = new HBox(24,
-                card("easy.png", "ЛЁГКИЙ",   "9×9  ·  10 мин",   "card-easy",
-                        () -> gui.startNewGame(9, 9, 10)),
-                card("mid.png",  "СРЕДНИЙ",  "16×16  ·  40 мин", "card-medium",
-                        () -> gui.startNewGame(16, 16, 40)),
-                card("high.png", "СЛОЖНЫЙ",  "16×30  ·  99 мин", "card-hard",
-                        () -> gui.startNewGame(16, 30, 99)));
-        cards.setAlignment(Pos.CENTER);
+                HBox cards = new HBox(24,
+                                card("easy.png", "ЛЁГКИЙ", "9×9  ·  10 мин", "card-easy",
+                                                () -> gui.startNewGame(9, 9, 10)),
+                                card("mid.png", "СРЕДНИЙ", "16×16  ·  40 мин", "card-medium",
+                                                () -> gui.startNewGame(16, 16, 40)),
+                                card("high.png", "СЛОЖНЫЙ", "16×30  ·  99 мин", "card-hard",
+                                                () -> gui.startNewGame(16, 30, 99)));
+                cards.setAlignment(Pos.CENTER);
 
-        Button back = new Button("←   НАЗАД");
-        back.getStyleClass().addAll("menu-btn", "btn-back");
-        back.setOnAction(e -> stage.setScene(new SplashScreen(stage, gui).getScene()));
+                Button back = new Button("←   НАЗАД");
+                back.getStyleClass().addAll("menu-btn", "btn-back");
+                back.setOnAction(e -> stage.setScene(new SplashScreen(stage, gui).getScene()));
 
-        VBox root = new VBox(0, title, divider, cards, back);
-        VBox.setMargin(divider, new javafx.geometry.Insets(2, 0, 30, 0));
-        VBox.setMargin(back, new javafx.geometry.Insets(30, 0, 0, 0));
-        root.setAlignment(Pos.CENTER);
-        root.setStyle("-fx-background-color: transparent; -fx-padding: 40;");
+                VBox root = new VBox(0, title, divider, cards, back);
+                VBox.setMargin(divider, new javafx.geometry.Insets(2, 0, 30, 0));
+                VBox.setMargin(back, new javafx.geometry.Insets(30, 0, 0, 0));
+                root.setAlignment(Pos.CENTER);
+                root.setStyle("-fx-background-color: transparent; -fx-padding: 40;");
 
-        // FIX 3: фон масштабируется вместе с окном
-        ImageView bg = new ImageView(new Image(getClass().getResourceAsStream("/images/fon2.png")));
-        bg.setPreserveRatio(false);
+                ImageView bg = new ImageView(
+                                new Image(getClass().getResourceAsStream("/images/fon2.png")));
+                bg.setPreserveRatio(false);
 
-        StackPane wrapper = new StackPane(bg, root);
-        scene = new Scene(wrapper, 900, 700);
+                StackPane wrapper = new StackPane(bg, root);
+                scene = new Scene(wrapper, 900, 700);
 
-        bg.fitWidthProperty().bind(scene.widthProperty());
-        bg.fitHeightProperty().bind(scene.heightProperty());
+                bg.fitWidthProperty().bind(scene.widthProperty());
+                bg.fitHeightProperty().bind(scene.heightProperty());
 
-        scene.getStylesheets().add(getClass().getResource("/gui/style.css").toExternalForm());
-    }
+                scene.getStylesheets()
+                                .add(getClass().getResource("/gui/style.css").toExternalForm());
+        }
 
-    public Scene getScene() {
-        return scene;
-    }
+        /**
+         * Возвращает сцену экрана выбора уровня.
+         *
+         * @return {@link Scene} для установки в {@link Stage}
+         */
+        public Scene getScene() {
+                return scene;
+        }
 
-    private VBox card(String imageName, String name, String desc, String styleClass,
-            Runnable onClick) {
-        ImageView img =
-                new ImageView(new Image(getClass().getResourceAsStream("/images/" + imageName)));
-        img.setFitWidth(100);
-        img.setFitHeight(100);
-        img.setPreserveRatio(true);
+        /**
+         * Создаёт карточку уровня сложности.
+         *
+         * @param imageName имя файла изображения из папки {@code /images/}
+         * @param name отображаемое название уровня
+         * @param desc описание уровня (размер поля и количество мин)
+         * @param styleClass CSS-класс для цветового оформления карточки
+         * @param onClick действие при клике — запуск игры с нужными параметрами
+         * @return {@link VBox} с оформленной карточкой
+         */
+        private VBox card(String imageName, String name, String desc, String styleClass,
+                        Runnable onClick) {
+                ImageView img = new ImageView(
+                                new Image(getClass().getResourceAsStream("/images/" + imageName)));
+                img.setFitWidth(100);
+                img.setFitHeight(100);
+                img.setPreserveRatio(true);
 
-        Label nm = new Label(name);
-        nm.getStyleClass().addAll("card-name", styleClass);
-        Label dsc = new Label(desc);
-        dsc.getStyleClass().add("card-desc");
+                Label nm = new Label(name);
+                nm.getStyleClass().addAll("card-name", styleClass);
+                Label dsc = new Label(desc);
+                dsc.getStyleClass().add("card-desc");
 
-        VBox box = new VBox(12, img, nm, dsc);
-        box.setAlignment(Pos.CENTER);
-        box.setPrefSize(200, 220);
-        box.setMinWidth(200);
-        box.getStyleClass().addAll("level-card", styleClass);
-        box.setOnMouseClicked(e -> onClick.run());
-        box.setOnMouseEntered(e -> {
-            box.setScaleX(1.05);
-            box.setScaleY(1.05);
-        });
-        box.setOnMouseExited(e -> {
-            box.setScaleX(1.0);
-            box.setScaleY(1.0);
-        });
-        return box;
-    }
+                VBox box = new VBox(12, img, nm, dsc);
+                box.setAlignment(Pos.CENTER);
+                box.setPrefSize(200, 220);
+                box.setMinWidth(200);
+                box.getStyleClass().addAll("level-card", styleClass);
+                box.setOnMouseClicked(e -> onClick.run());
+                box.setOnMouseEntered(e -> {
+                        box.setScaleX(1.05);
+                        box.setScaleY(1.05);
+                });
+                box.setOnMouseExited(e -> {
+                        box.setScaleX(1.0);
+                        box.setScaleY(1.0);
+                });
+                return box;
+        }
 }
