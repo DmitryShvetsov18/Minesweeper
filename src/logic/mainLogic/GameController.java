@@ -15,6 +15,7 @@ public class GameController {
     private final GridPane gridPane;
     private final MinesweeperGUI gui;
 
+
     private Timeline timer;
     private int secondsElapsed = 0;
 

@@ -12,6 +12,7 @@ public class GameBoard {
     private boolean gameOver;
     private boolean win;
     private int openedCellsCount;
+    private boolean firstClick;
 
     public GameBoard(int rows, int columns, int minesCount) {
         this.rows = rows;
@@ -21,10 +22,9 @@ public class GameBoard {
         this.gameOver = false;
         this.win = false;
         this.openedCellsCount = 0;
+        this.firstClick = true;
 
         initializeCells();
-        insertMines();
-        calculateNeighbourMines();
     }
 
     public int getRows() {
@@ -59,9 +59,8 @@ public class GameBoard {
             }
         }
     }
-    public void insertMines() {
-        Set<Integer> minesPlaces = new HashSet<>(generateMinesPlaces());
-        System.out.println(minesPlaces);
+    public void insertMines(int firstRow, int firstColumn) {
+        Set<Integer> minesPlaces = new HashSet<>(generateMinesPlaces(firstRow, firstColumn));
         for (int i = 1; i < rows + 1; i++) {
             for (int j = 1; j < columns + 1; j++) {
                 if (minesPlaces.contains(cells[i][j].getNumber())) {
@@ -71,16 +70,34 @@ public class GameBoard {
         }
     }
 
-    public List<Integer> generateMinesPlaces() {
+    private List<Integer> generateMinesPlaces(int firstRow, int firstColumn) {
+        Set<Integer> forbiddenCells = getForbiddenCells(firstRow, firstColumn);
         int countOfCells = rows * columns;
-        System.out.println(countOfCells);
         List<Integer> indexes = new ArrayList<>(
-                IntStream.range(0, countOfCells).boxed().toList()
+                IntStream.range(0, countOfCells)
+                        .filter(i -> !forbiddenCells.contains(i))
+                        .boxed()
+                        .toList()
         );
         Collections.shuffle(indexes);
 
         return indexes.subList(0, this.getMinesCount());
     }
+
+    private Set<Integer> getForbiddenCells(int row, int column) {
+        Set<Integer> forbiddenCells = new HashSet<>();
+        int centerY = row + 1;
+        int centerX = column + 1;
+
+        for (int dy = -1; dy <= 1; dy++) {
+            for (int dx = -1; dx <= 1; dx++) {
+                forbiddenCells.add(cells[centerY + dy][centerX + dx].getNumber());
+            }
+        }
+        return forbiddenCells;
+    }
+
+
     public void calculateNeighbourMines() {
         for (int y = 1; y < rows + 1; y++) {
             for (int x = 1; x < columns + 1; x++) {
@@ -99,6 +116,11 @@ public class GameBoard {
     }
 
     public void openCell(int row, int column) {
+        if (firstClick) {
+            insertMines(row, column);
+            calculateNeighbourMines();
+            firstClick = false;
+        }
         if (gameOver || win) {
             return;
         }
@@ -154,8 +176,8 @@ public class GameBoard {
     }
 
     public void openAllMines() {
-        for (int y = 0; y < rows + 1; y++) {
-            for (int x = 0; x < columns; x++) {
+        for (int y = 1; y < rows + 1; y++) {
+            for (int x = 1; x < columns; x++) {
                 if (cells[y][x].IsMine()) {
                     cells[y][x].open();
                 }
