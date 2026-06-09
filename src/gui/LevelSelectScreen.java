@@ -14,20 +14,55 @@ import logic.mainLogic.MinesweeperGUI;
 
 /**
  * Экран выбора уровня сложности.
+ * 
  * <p>
- * Отображает три карточки уровней: лёгкий (9×9, 10 мин), средний (16×16, 40 мин) и сложный (16×30,
- * 99 мин). Клик по карточке запускает новую игру с соответствующими параметрами.
+ * Отображает три карточки уровней с параметрами игрового поля:
+ * <ul>
+ * <li><b>Лёгкий</b> — 9×9, 10 мин</li>
+ * <li><b>Средний</b> — 16×16, 40 мин</li>
+ * <li><b>Сложный</b> — 16×30, 99 мин</li>
+ * </ul>
+ * Клик по карточке немедленно запускает новую игру с соответствующими
+ * параметрами.
  * </p>
+ * 
+ * <p>
+ * Фон масштабируется вместе с окном через привязку
+ * {@code fitWidthProperty} и {@code fitHeightProperty}
+ * к размерам {@link Scene}.
+ * </p>
+ * 
+ * <p>
+ * Пример использования:
+ * </p>
+ * 
+ * <pre>{@code
+ * stage.setScene(new LevelSelectScreen(stage, gui).getScene());
+ * }</pre>
+ * 
+ * @author Maxim
+ * @version 1.0
+ * @since 1.0
+ * @see SplashScreen
+ * @see logic.mainLogic.MinesweeperGUI#startNewGame(int, int, int)
  */
 public class LevelSelectScreen {
 
         private final Scene scene;
 
         /**
-         * Создаёт экран выбора уровня.
-         *
-         * @param stage основной {@link Stage} приложения
-         * @param gui экземпляр главного приложения для запуска игры
+         * Создаёт экран выбора уровня и инициализирует все элементы интерфейса.
+         * 
+         * <p>
+         * Строит макет из заголовка с декоративным разделителем,
+         * трёх карточек уровней и кнопки возврата в главное меню.
+         * Фоновое изображение {@code fon2.png} загружается из ресурсов
+         * и привязывается к размерам сцены.
+         * </p>
+         * 
+         * @param stage основной {@link Stage} приложения, в который будет установлена
+         *              сцена
+         * @param gui   экземпляр {@link MinesweeperGUI} для запуска игры и навигации
          */
         public LevelSelectScreen(Stage stage, MinesweeperGUI gui) {
                 Label title = new Label("ВЫБЕРИ  УРОВЕНЬ");
@@ -44,8 +79,8 @@ public class LevelSelectScreen {
 
                 javafx.scene.shape.Rectangle lineDot = new javafx.scene.shape.Rectangle(8, 8);
                 lineDot.setFill(javafx.scene.paint.Color.web("#00e5ff"));
-                lineDot.setEffect(new javafx.scene.effect.DropShadow(10,
-                                javafx.scene.paint.Color.web("#00e5ff")));
+                lineDot.setEffect(
+                                new javafx.scene.effect.DropShadow(10, javafx.scene.paint.Color.web("#00e5ff")));
                 lineDot.setRotate(45);
 
                 HBox divider = new HBox(10, lineLeft, lineDot, lineRight);
@@ -70,8 +105,7 @@ public class LevelSelectScreen {
                 root.setAlignment(Pos.CENTER);
                 root.setStyle("-fx-background-color: transparent; -fx-padding: 40;");
 
-                ImageView bg = new ImageView(
-                                new Image(getClass().getResourceAsStream("/images/fon2.png")));
+                ImageView bg = new ImageView(new Image(getClass().getResourceAsStream("/images/fon2.png")));
                 bg.setPreserveRatio(false);
 
                 StackPane wrapper = new StackPane(bg, root);
@@ -80,14 +114,18 @@ public class LevelSelectScreen {
                 bg.fitWidthProperty().bind(scene.widthProperty());
                 bg.fitHeightProperty().bind(scene.heightProperty());
 
-                scene.getStylesheets()
-                                .add(getClass().getResource("/gui/style.css").toExternalForm());
+                scene.getStylesheets().add(getClass().getResource("/gui/style.css").toExternalForm());
         }
 
         /**
-         * Возвращает сцену экрана выбора уровня.
-         *
-         * @return {@link Scene} для установки в {@link Stage}
+         * Возвращает готовую сцену экрана выбора уровня.
+         * 
+         * <p>
+         * Используется для установки сцены в {@link Stage}:
+         * {@code stage.setScene(levelSelectScreen.getScene())}.
+         * </p>
+         * 
+         * @return {@link Scene} с разрешением 900×700, готовая к отображению
          */
         public Scene getScene() {
                 return scene;
@@ -95,18 +133,26 @@ public class LevelSelectScreen {
 
         /**
          * Создаёт карточку уровня сложности.
-         *
-         * @param imageName имя файла изображения из папки {@code /images/}
-         * @param name отображаемое название уровня
-         * @param desc описание уровня (размер поля и количество мин)
-         * @param styleClass CSS-класс для цветового оформления карточки
-         * @param onClick действие при клике — запуск игры с нужными параметрами
-         * @return {@link VBox} с оформленной карточкой
+         * 
+         * <p>
+         * Карточка содержит изображение, название уровня и описание поля.
+         * При наведении плавно увеличивается до 105% через {@code setScaleX/Y}.
+         * При клике вызывается переданный {@link Runnable}, который запускает игру.
+         * </p>
+         * 
+         * @param imageName  имя файла изображения из папки {@code /images/}, например
+         *                   {@code "easy.png"}
+         * @param name       отображаемое название уровня, например {@code "ЛЁГКИЙ"}
+         * @param desc       описание поля и количества мин, например
+         *                   {@code "9×9  ·  10 мин"}
+         * @param styleClass CSS-класс для цветового оформления: {@code card-easy},
+         *                   {@code card-medium} или {@code card-hard}
+         * @param onClick    действие при клике — запускает игру с нужными параметрами
+         * @return {@link VBox} с оформленной карточкой размером 200×220px
          */
         private VBox card(String imageName, String name, String desc, String styleClass,
                         Runnable onClick) {
-                ImageView img = new ImageView(
-                                new Image(getClass().getResourceAsStream("/images/" + imageName)));
+                ImageView img = new ImageView(new Image(getClass().getResourceAsStream("/images/" + imageName)));
                 img.setFitWidth(100);
                 img.setFitHeight(100);
                 img.setPreserveRatio(true);

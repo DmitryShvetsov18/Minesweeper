@@ -15,25 +15,52 @@ import logic.mainLogic.MinesweeperGUI;
 
 /**
  * Всплывающее окно результата игры.
+ * 
  * <p>
- * Отображается поверх игрового поля по окончании партии — при победе или поражении. Окно модальное,
- * прозрачного стиля, центрируется относительно родительского {@link Stage}.
+ * Отображается поверх игрового поля по окончании партии —
+ * при победе ({@link #showWin}) или поражении ({@link #showLose}).
+ * Окно модальное, блокирует взаимодействие с родительским окном
+ * до закрытия и центрируется относительно него.
  * </p>
+ * 
+ * <p>
+ * Пример использования:
+ * </p>
+ * 
+ * <pre>{@code
+ * GameOverPopup.showWin(primaryStage, 120, gui, 16, 30, 99);
+ * GameOverPopup.showLose(primaryStage, 45, gui, 9, 9, 10);
+ * }</pre>
+ * 
+ * @author Maxim
+ * @version 1.0
+ * @since 1.0
+ * @see StatsPopup
  */
 public class GameOverPopup {
 
-        /** Запрещает создание экземпляров утилитного класса. */
-        private GameOverPopup() {}
+        /**
+         * Запрещает создание экземпляров утилитного класса.
+         */
+        private GameOverPopup() {
+        }
 
         /**
          * Показывает окно поражения.
-         *
-         * @param owner родительское окно игры
+         * 
+         * <p>
+         * Отображает заголовок «ВЗРЫВ», время партии и кнопки
+         * для повторной игры или возврата в главное меню.
+         * </p>
+         * 
+         * @param owner   родительское окно игры
          * @param seconds время партии в секундах
-         * @param gui экземпляр главного приложения для перезапуска или выхода в меню
-         * @param rows количество строк игрового поля
-         * @param cols количество столбцов игрового поля
-         * @param mines количество мин на поле
+         * @param gui     экземпляр главного приложения для перезапуска или выхода в
+         *                меню
+         * @param rows    количество строк игрового поля
+         * @param cols    количество столбцов игрового поля
+         * @param mines   количество мин на поле
+         * @see #showWin
          */
         public static void showLose(Stage owner, int seconds, MinesweeperGUI gui, int rows,
                         int cols, int mines) {
@@ -42,13 +69,20 @@ public class GameOverPopup {
 
         /**
          * Показывает окно победы.
-         *
-         * @param owner родительское окно игры
+         * 
+         * <p>
+         * Отображает заголовок «ПОБЕДА!», время партии и кнопки
+         * для повторной игры или возврата в главное меню.
+         * </p>
+         * 
+         * @param owner   родительское окно игры
          * @param seconds время партии в секундах
-         * @param gui экземпляр главного приложения для перезапуска или выхода в меню
-         * @param rows количество строк игрового поля
-         * @param cols количество столбцов игрового поля
-         * @param mines количество мин на поле
+         * @param gui     экземпляр главного приложения для перезапуска или выхода в
+         *                меню
+         * @param rows    количество строк игрового поля
+         * @param cols    количество столбцов игрового поля
+         * @param mines   количество мин на поле
+         * @see #showLose
          */
         public static void showWin(Stage owner, int seconds, MinesweeperGUI gui, int rows, int cols,
                         int mines) {
@@ -57,14 +91,20 @@ public class GameOverPopup {
 
         /**
          * Внутренний метод построения и отображения попапа.
-         *
-         * @param owner родительское окно
+         * 
+         * <p>
+         * Создаёт {@link Stage} с прозрачным фоном, строит макет
+         * из заголовка, подзаголовка, времени и кнопок управления,
+         * затем центрирует окно относительно {@code owner}.
+         * </p>
+         * 
+         * @param owner   родительское окно
          * @param seconds время партии в секундах
-         * @param gui экземпляр главного приложения
-         * @param rows строки поля
-         * @param cols столбцы поля
-         * @param mines количество мин
-         * @param win {@code true} — победа, {@code false} — поражение
+         * @param gui     экземпляр главного приложения
+         * @param rows    строки поля
+         * @param cols    столбцы поля
+         * @param mines   количество мин
+         * @param win     {@code true} — победа, {@code false} — поражение
          */
         private static void show(Stage owner, int seconds, MinesweeperGUI gui, int rows, int cols,
                         int mines, boolean win) {
@@ -121,10 +161,8 @@ public class GameOverPopup {
                 popupStage.sizeToScene();
 
                 popupStage.setOnShown(e -> {
-                        popupStage.setX(owner.getX()
-                                        + (owner.getWidth() - popupStage.getWidth()) / 2);
-                        popupStage.setY(owner.getY()
-                                        + (owner.getHeight() - popupStage.getHeight()) / 2);
+                        popupStage.setX(owner.getX() + (owner.getWidth() - popupStage.getWidth()) / 2);
+                        popupStage.setY(owner.getY() + (owner.getHeight() - popupStage.getHeight()) / 2);
                 });
 
                 popupStage.show();
@@ -132,9 +170,14 @@ public class GameOverPopup {
 
         /**
          * Создаёт стилизованную кнопку для попапа.
-         *
-         * @param text текст кнопки
-         * @param color hex-цвет рамки и текста
+         * 
+         * <p>
+         * Кнопка имеет прозрачный фон, цветную рамку и текст.
+         * При наведении снижает прозрачность до 75%.
+         * </p>
+         * 
+         * @param text  текст кнопки
+         * @param color hex-цвет рамки и текста, например {@code "#4ade80"}
          * @return готовая кнопка с hover-эффектом
          */
         private static Button popupBtn(String text, String color) {
