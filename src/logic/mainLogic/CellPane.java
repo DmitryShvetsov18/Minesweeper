@@ -4,6 +4,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
+/**
+ * Графическое представление клетки игрового поля сапёра.
+ * <p>
+ * Класс связывает логическую модель {@link Cell} с её отображением
+ * в пользовательском интерфейсе JavaFX.
+ * В зависимости от состояния клетки отображает соответствующее изображение:
+ * мину, флаг, число соседних мин или пустую клетку.
+ * </p>
+ */
 public class CellPane extends StackPane {
 
     private final int row;
@@ -12,6 +21,13 @@ public class CellPane extends StackPane {
 
     private final ImageView imageView;
 
+    /**
+     * Создает графическое представление клетки.
+     *
+     * @param row номер строки клетки
+     * @param column номер столбца клетки
+     * @param cell логическая модель клетки
+     */
     public CellPane(int row, int column, Cell cell) {
         this.row = row;
         this.column = column;
@@ -21,17 +37,12 @@ public class CellPane extends StackPane {
         setMaxSize(50, 50);
         setMinSize(50, 50);
 
-        // Убрали Rectangle, будем использовать фон самого StackPane через CSS
-
         imageView = new ImageView();
         imageView.setFitWidth(32);
         imageView.setFitHeight(32);
         imageView.setPreserveRatio(true);
 
-        // Центрируем картинку
         getChildren().add(imageView);
-
-        // Базовый стиль для всех клеток
         getStyleClass().add("cell-btn");
 
         updateDisplay();
@@ -49,8 +60,21 @@ public class CellPane extends StackPane {
         return cell;
     }
 
+    /**
+     * Обновляет внешний вид клетки в соответствии с её текущим состоянием.
+     * <p>
+     * Метод анализирует состояние связанной модели {@link Cell}
+     * и устанавливает необходимые CSS-классы и изображения:
+     * </p>
+     * <ul>
+     *     <li>закрытая клетка.</li>
+     *     <li>открытая пустая клетка;</li>
+     *     <li>открытая клетка с числом соседних мин;</li>
+     *     <li>клетка с установленным флагом;</li>
+     *     <li>открытая клетка с миной;</li>
+     * </ul>
+     */
     public void updateDisplay() {
-        // Сбрасываем специфические состояния
         getStyleClass().removeAll("cell-open", "cell-flag", "cell-mine", "cell-empty");
 
         if (cell.IsOpen()) {
@@ -64,7 +88,6 @@ public class CellPane extends StackPane {
                 if (n > 0) {
                     imageView.setImage(load("/images/" + n + ".png"));
                 } else {
-                    // Пустая открытая клетка
                     getStyleClass().add("cell-empty");
                     imageView.setImage(null);
                 }
@@ -73,12 +96,17 @@ public class CellPane extends StackPane {
             getStyleClass().add("cell-flag");
             imageView.setImage(load("/images/flag.png"));
         } else {
-            // Закрытая клетка (стандартное состояние)
-            // Убеждаемся, что картинки нет
             imageView.setImage(null);
         }
     }
 
+    /**
+     * Загружает изображение из ресурсов приложения.
+     *
+     * @param path путь к изображению относительно каталога ресурсов
+     * @return загруженное изображение или {@code null},
+     *         если файл не найден
+     */
     private Image load(String path) {
         try {
             return new Image(getClass().getResourceAsStream(path));

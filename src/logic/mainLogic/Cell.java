@@ -1,5 +1,18 @@
 package logic.mainLogic;
 
+/**
+ * Представляет клетку игрового поля сапёра.
+ * <p>
+ * Клетка хранит информацию о своем положении на поле,
+ * наличии мины, количестве соседних мин, а также
+ * состоянии (открыта, помечена флагом и т.д.).
+ * </p>
+ * <p>
+ * Для упрощения обработки границ поля используются
+ * специальные барьерные клетки. Такие клетки не участвуют
+ * в игровом процессе и имеют номер     {@code -1}.
+ * </p>
+ */
 public class Cell {
     private final int row;
     private final int column;
@@ -11,6 +24,14 @@ public class Cell {
     private boolean isFlagged;
     private boolean isBarrier;
 
+    /**
+     * Создает новую клетку игрового поля.
+     *
+     * @param row номер строки клетки
+     * @param column номер столбца клетки
+     * @param number уникальный номер клетки.
+     *               Значение {@code -1} используется для барьерных клеток.
+     */
     public Cell(int row, int column, int number) {
         this.row = row;
         this.column = column;
@@ -48,7 +69,6 @@ public class Cell {
         this.countOfNeighbourMines = countOfNeighbourMines;
     }
 
-    public boolean IsDefault() { return isDefault; }
     public boolean IsMine() {
         return isMine;
     }
@@ -62,9 +82,6 @@ public class Cell {
         return isFlagged;
     }
 
-    public void placeMine() {
-        isMine = true;
-    }
 
     public void toggleFlag() {
         if (isOpened || isBarrier) {

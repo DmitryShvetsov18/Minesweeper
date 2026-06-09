@@ -4,6 +4,13 @@ package logic.mainLogic;
 import java.util.*;
 import java.util.stream.IntStream;
 
+/**
+ * Представляет виртуальное игровое поле сапёра.
+ * Отвечает за хранение клеток, генерацию мин,
+ * открытие клеток и проверку условий победы.
+ *
+ * <p>Для избежания выхода за границы поля используются барьерные элементы</p>
+ */
 public class GameBoard {
     private final int rows;
     private final int columns;
@@ -14,6 +21,13 @@ public class GameBoard {
     private int openedCellsCount;
     private boolean firstClick;
 
+    /**
+     * Создает новое игровое поле
+     *
+     * @param rows количество рядов поля
+     * @param columns количество колон поля
+     * @param minesCount количество мин на поле
+     */
     public GameBoard(int rows, int columns, int minesCount) {
         this.rows = rows;
         this.columns = columns;
@@ -46,6 +60,9 @@ public class GameBoard {
         return gameOver;
     }
 
+    /**
+     * Заполняет матрицу игрового поля
+     */
     private void initializeCells() {
         int cellNumber = 0;
         for (int y = 0; y < rows + 2; y++) {
@@ -59,6 +76,12 @@ public class GameBoard {
             }
         }
     }
+
+    /**
+     * Заполняет игровое поле минами, избегая первую нажатую кнопку и её соседей
+     * @param firstRow номер ряда первой нажатой клетки
+     * @param firstColumn номер колонки первой нажатой клетки
+     */
     public void insertMines(int firstRow, int firstColumn) {
         Set<Integer> minesPlaces = new HashSet<>(generateMinesPlaces(firstRow, firstColumn));
         for (int i = 1; i < rows + 1; i++) {
@@ -70,6 +93,13 @@ public class GameBoard {
         }
     }
 
+    /**
+     * Генерирует номера ячеек, в которые будут размещены мины,
+     * игнорируя номера первой нажатой кнопки и её соседей
+     * @param firstRow номер ряда первой нажатой клетки
+     * @param firstColumn номер колонки первой нажатой клетки
+     * @return Список номеров ячеек, в которые нужно разместить мины
+     */
     private List<Integer> generateMinesPlaces(int firstRow, int firstColumn) {
         Set<Integer> forbiddenCells = getForbiddenCells(firstRow, firstColumn);
         int countOfCells = rows * columns;
@@ -84,10 +114,17 @@ public class GameBoard {
         return indexes.subList(0, this.getMinesCount());
     }
 
-    private Set<Integer> getForbiddenCells(int row, int column) {
+    /**
+     * Возвращает множество номеров, в которых не должно быть мин
+     * (первая нажатая клетка и её соседи)
+     * @param firstRow
+     * @param firstColumn
+     * @return множество номеров, в которых не должно быть мин
+     */
+    private Set<Integer> getForbiddenCells(int firstRow, int firstColumn) {
         Set<Integer> forbiddenCells = new HashSet<>();
-        int centerY = row + 1;
-        int centerX = column + 1;
+        int centerY = firstRow + 1;
+        int centerX = firstColumn + 1;
 
         for (int dy = -1; dy <= 1; dy++) {
             for (int dx = -1; dx <= 1; dx++) {
@@ -97,7 +134,9 @@ public class GameBoard {
         return forbiddenCells;
     }
 
-
+    /**
+     * Считает количество соседей-мин для каждой клетки
+     */
     public void calculateNeighbourMines() {
         for (int y = 1; y < rows + 1; y++) {
             for (int x = 1; x < columns + 1; x++) {
@@ -115,6 +154,11 @@ public class GameBoard {
         }
     }
 
+    /**
+     * Обрабатывает открытие клетки, если игра ещё не закончена
+     * @param row номер ряда открытой ячейки
+     * @param column номер колонки открытой ячейки
+     */
     public void openCell(int row, int column) {
         if (firstClick) {
             insertMines(row, column);
@@ -137,6 +181,12 @@ public class GameBoard {
         checkWin();
     }
 
+    /**
+     * При помощи алгоритма поиска в ширину, открывает ячейки с 0
+     * количеством соседей-мин и их соседей
+     * @param row номер ряда открытой ячейки
+     * @param column номер колонки открытой ячейки
+     */
     public void openEmptyCells(int row, int column) {
         Queue<Cell> queue = new LinkedList<>();
         HashSet<Cell> visitedCells = new HashSet<>();
@@ -162,10 +212,10 @@ public class GameBoard {
                     for (int dx = -1; dx <= 1; dx++) {
                         Cell currentNeighbour = cells[currentRow + dy][currentColumn + dx];
                         if (!currentNeighbour.IsOpen() &&
-                            !visitedCells.contains(currentNeighbour) &&
-                            !currentNeighbour.IsFlagged() &&
-                            !currentNeighbour.IsBarrier() &&
-                            !currentNeighbour.IsMine()
+                                !visitedCells.contains(currentNeighbour) &&
+                                !currentNeighbour.IsFlagged() &&
+                                !currentNeighbour.IsBarrier() &&
+                                !currentNeighbour.IsMine()
                         ) {
                             queue.offer(currentNeighbour);
                         }
@@ -175,6 +225,9 @@ public class GameBoard {
         }
     }
 
+    /**
+     * Открывает все ячейки, которые являются минами
+     */
     public void openAllMines() {
         for (int y = 1; y < rows + 1; y++) {
             for (int x = 1; x < columns; x++) {
@@ -185,20 +238,11 @@ public class GameBoard {
         }
     }
 
-    public void printBoard() {
-        for (int y = 1; y < rows + 1; y++) {
-            for (int x = 1; x < columns + 1; x++) {
-                if (cells[y][x].IsMine()) {
-                    System.out.print("B");
-                }
-                else {
-                    System.out.print(cells[y][x].getCountOfNeighbourMines());
-                }
-            }
-            System.out.println();
-        }
-    }
-
+    /**
+     * Меняет состояние флага у ячейки, если игра ещё не закончена
+     * @param row номер ряда нажатой ячейки
+     * @param column номер колонки нажатой ячейки
+     */
     public void toggleFlag(int row, int column) {
         if (gameOver || win) {
             return;
@@ -209,14 +253,30 @@ public class GameBoard {
         }
     }
 
+    /**
+     * Проверяет, не остались ли неоткрытые ячейки без мин
+     * <p>Если таких нет, то игра завершается победой</p>
+     */
     public void checkWin() {
-        int nonMineCount = rows * columns - minesCount;
+        int nonMineCount = getNonMinesCount();
         if (openedCellsCount == nonMineCount) {
             gameOver = true;
             win = true;
         }
     }
 
+    /**
+     * Считает количество неоткрытых ячеек без мин
+     * @return число неоткрытых ячеек без мин
+     */
+    private int getNonMinesCount() {
+        return rows * columns - minesCount;
+    }
+
+    /**
+     *
+     * @return Список индексов, в которых находятся мины
+     */
     public List<Integer> getMinesPositions(){
         List<Integer> positions = new ArrayList<>();
         for (int y = 1; y <= rows; y++){
