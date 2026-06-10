@@ -18,11 +18,10 @@ public class Cell {
     private final int column;
     private final int number;
     private int countOfNeighbourMines;
-    private boolean isDefault;
     private boolean isOpened;
     private boolean isMine;
     private boolean isFlagged;
-    private boolean isBarrier;
+    private final boolean isBarrier;
 
     /**
      * Создает новую клетку игрового поля.
@@ -43,7 +42,6 @@ public class Cell {
             isBarrier = false;
         }
         this.countOfNeighbourMines = 0;
-        this.isDefault = true;
         this.isMine = false;
         this.isOpened = false;
 

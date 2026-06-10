@@ -189,7 +189,7 @@ public class GameBoard {
      */
     public void openEmptyCells(int row, int column) {
         Queue<Cell> queue = new LinkedList<>();
-        HashSet<Cell> visitedCells = new HashSet<>();
+        Set<Cell> visitedCells = new HashSet<>();
 
         queue.offer(cells[row + 1][column + 1]);
 
@@ -208,18 +208,22 @@ public class GameBoard {
             visitedCells.add(currentCell);
 
             if (currentCell.getCountOfNeighbourMines() == 0) {
-                for (int dy = -1; dy <= 1; dy++) {
-                    for (int dx = -1; dx <= 1; dx++) {
-                        Cell currentNeighbour = cells[currentRow + dy][currentColumn + dx];
-                        if (!currentNeighbour.IsOpen() &&
-                                !visitedCells.contains(currentNeighbour) &&
-                                !currentNeighbour.IsFlagged() &&
-                                !currentNeighbour.IsBarrier() &&
-                                !currentNeighbour.IsMine()
-                        ) {
-                            queue.offer(currentNeighbour);
-                        }
-                    }
+                addNeighboursToQueue(currentRow, currentColumn, queue, visitedCells);
+            }
+        }
+    }
+
+    public void addNeighboursToQueue(int currentRow, int currentColumn, Queue<Cell> queue, Set<Cell> visitedCells) {
+        for (int dy = -1; dy <= 1; dy++) {
+            for (int dx = -1; dx <= 1; dx++) {
+                Cell currentNeighbour = cells[currentRow + dy][currentColumn + dx];
+                if (!currentNeighbour.IsOpen() &&
+                        !visitedCells.contains(currentNeighbour) &&
+                        !currentNeighbour.IsFlagged() &&
+                        !currentNeighbour.IsBarrier() &&
+                        !currentNeighbour.IsMine()
+                ) {
+                    queue.offer(currentNeighbour);
                 }
             }
         }
